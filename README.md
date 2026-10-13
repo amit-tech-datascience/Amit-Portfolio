@@ -76,6 +76,16 @@ obsolete or empty German translations in `scripts/resume_de.json`. Render and in
 all four pages before publishing;
 the static website itself has no dependency on ReportLab or any Conda environment.
 
+For local PDF readability checks, add `pypdf` and `pypdfium2` to that optional
+environment and run `python scripts/check_resumes.py --render .qa/resume-review`.
+The checker verifies every source paragraph and its reading order in two independent
+PDF engines, visible profile URLs, page bounds, language metadata and HTTPS links.
+These checks are not a commercial ATS certification, AI-authorship score or a
+job-specific ranking. Keep actual contact information in the page body, expand
+relevant abbreviations, and never add hidden keywords or unsupported achievements.
+The public downloads intentionally use LinkedIn-only contact. Private applications
+may require a direct email and phone in the application form or a separate private CV.
+
 The earlier `assets/Amit-Amit-Resume.pdf` remains available for old shared links;
 the language-labelled downloads above are the maintained versions.
 

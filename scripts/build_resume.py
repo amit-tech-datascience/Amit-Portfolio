@@ -9,10 +9,9 @@ import json
 from io import BytesIO
 from pathlib import Path
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT, TA_RIGHT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, KeepTogether
+from reportlab.platypus import SimpleDocTemplate, Paragraph, PageBreak
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUTS = {'en': ROOT / 'assets' / 'Amit-Amit-Resume-EN.pdf',
@@ -20,7 +19,6 @@ OUTPUTS = {'en': ROOT / 'assets' / 'Amit-Amit-Resume-EN.pdf',
 LANGUAGE = 'en'
 SOURCE_TEXTS = set()
 TRANSLATIONS = {}
-FOOTER = 'Amit Amit | Public resume | Updated October 2026'
 TITLE = 'Amit Amit - Data Scientist Resume'
 SUBJECT = 'Public professional resume'
 INK = colors.HexColor('#172e38')
@@ -30,9 +28,9 @@ STYLES = {
     'name': ParagraphStyle('Name',fontName='Helvetica-Bold',fontSize=26,leading=30,textColor=colors.black,spaceAfter=5),
     'subtitle': ParagraphStyle('Subtitle',fontName='Helvetica',fontSize=12,leading=16,textColor=INK,spaceAfter=7),
     'contact': ParagraphStyle('Contact',fontName='Helvetica',fontSize=9,leading=13,textColor=MUTED,spaceAfter=11),
-    'section': ParagraphStyle('Section',fontName='Helvetica-Bold',fontSize=11,leading=15,textColor=TEAL,spaceBefore=13,spaceAfter=7,keepWithNext=True),
+    'section': ParagraphStyle('Section',fontName='Helvetica-Bold',fontSize=11,leading=15,textColor=TEAL,spaceBefore=10,spaceAfter=6,keepWithNext=True),
     'body': ParagraphStyle('Body',fontName='Helvetica',fontSize=10,leading=13.8,textColor=INK,spaceAfter=6),
-    'role': ParagraphStyle('Role',fontName='Helvetica-Bold',fontSize=10.2,leading=14,textColor=INK,spaceBefore=8,spaceAfter=2,keepWithNext=True),
+    'role': ParagraphStyle('Role',fontName='Helvetica-Bold',fontSize=10.2,leading=14,textColor=INK,spaceBefore=6,spaceAfter=2,keepWithNext=True),
     'meta': ParagraphStyle('Meta',fontName='Helvetica',fontSize=9,leading=12.2,textColor=MUTED,spaceAfter=4,keepWithNext=True),
     'bullet': ParagraphStyle('Bullet',fontName='Helvetica',fontSize=10,leading=13.5,textColor=INK,leftIndent=10,firstLineIndent=-8,spaceAfter=3),
 }
@@ -51,25 +49,30 @@ def footer(canvas,doc):
     canvas.saveState()
     canvas.setFont('Helvetica',8)
     canvas.setFillColor(MUTED)
-    canvas.drawString(43,27,translate(FOOTER))
     canvas.drawRightString(A4[0]-43,27,f'{doc.page} / 2')
     canvas.restoreState()
 
+class ResumeDocument(SimpleDocTemplate):
+    def afterPage(self):
+        # Write pagination after body content so extraction starts with the resume.
+        footer(self.canv,self)
+
 def build_story():
     story=[p('Amit Amit','name'),p('Data Scientist | Computer Vision and Applied AI','subtitle'),
-      p('Gotha, Germany &nbsp; | &nbsp; <link href="https://www.linkedin.com/in/amit-tech/" color="#116853">linkedin.com/in/amit-tech</link><br/><link href="https://amit-tech-datascience.github.io/Amit-Portfolio/" color="#116853">Portfolio and case studies</link> &nbsp; | &nbsp; <link href="https://github.com/amit-tech-datascience" color="#116853">GitHub: amit-tech-datascience</link> &nbsp; | &nbsp; <link href="https://github.com/ak06645" color="#116853">Earlier work: ak06645</link>','contact'),
-      p('Data Scientist at Sedeco Imaging working on camera-based detection, robotic handling and efficient edge deployment. M.Sc. in Data Science from TU Braunschweig, with research experience in scientific machine learning, biomedical data analysis and aerospace applications. Earlier experience in Linux infrastructure, automation and SQL reporting.'),
+      p('Gotha, Germany | <link href="https://www.linkedin.com/in/amit-tech/" color="#116853">linkedin.com/in/amit-tech</link><br/><link href="https://amit-tech-datascience.github.io/Amit-Portfolio/" color="#116853">amit-tech-datascience.github.io/Amit-Portfolio</link><br/><link href="https://github.com/amit-tech-datascience" color="#116853">github.com/amit-tech-datascience</link> | <link href="https://github.com/ak06645" color="#116853">github.com/ak06645</link>','contact'),
+      p('Professional summary','section'),
+      p('Data Scientist at Sedeco Imaging building camera-based detection and robotic sorting workflows. M.Sc. Data Science graduate with research experience in computer vision, scientific machine learning and biomedical data, plus prior Linux, Python/Bash and SQL experience.'),
       p('Technical skills','section'),
-      p('<b>Modeling:</b> PyTorch, TensorFlow/Keras, scikit-learn, OpenCV, anomaly detection, segmentation, physics-informed neural networks.<br/><b>Data and engineering:</b> Python, SQL, NumPy, Pandas, Git, Docker, Linux, Django, TypeScript/Next.js.<br/><b>Vision and edge:</b> OpenMV, Raspberry Pi, Luckfox, Hikrobot camera integration.'),
+      p('<b>Machine learning:</b> PyTorch, TensorFlow/Keras, scikit-learn, OpenCV, deep learning, anomaly detection, segmentation, physics-informed neural networks (PINNs).<br/><b>Data and software:</b> Python, SQL, NumPy, Pandas, Git, Docker, Linux, Django, TypeScript/Next.js.<br/><b>Computer vision and edge:</b> OpenMV, Raspberry Pi, Luckfox, Hikrobot camera integration.'),
       p('Professional experience','section')]
     story+=entry('Data Scientist | Sedeco Imaging','Gotha, Germany | October 2025 - Present',[
       'Lead the technical design of bottle and can detection workflows and robotic separation using an FR5 arm.',
       'Develop camera-based vision components and deployment solutions for compact platforms including Luckfox, OpenMV and Raspberry Pi, alongside Hikrobot systems.'])
     story+=entry('Student Research Assistant | PLRI, TU Braunschweig','Braunschweig, Germany | November 2022 - September 2025',[
       'Analyzed multi-omics data using network-based methods for NetfLID; supported gene-gene interaction modeling for the Epistasis Disease Atlas.',
-      'Built SVM models and visualizations for biomedical collaborators; supported Linux research infrastructure and contributed to an HPC cluster.'])
+      'Built support vector machine (SVM) models and visualizations for biomedical researchers; supported Linux infrastructure and contributed to a high-performance computing (HPC) cluster.'])
     story+=entry('Student Research Assistant | German Aerospace Center DLR','Braunschweig, Germany | November 2024 - June 2025',[
-      'Developed CNN-based structural wear models using inspection images and environmental data for aircraft component lifecycle assessment.',
+      'Developed convolutional neural network (CNN) models of structural wear using inspection images and environmental data for aircraft component lifecycle assessment.',
       'Investigated data provenance and blockchain approaches for lifecycle assessment; coauthored a conference contribution listed by DLR.'])
     story+=entry('Student Assistant | iBMB, TU Braunschweig','Braunschweig, Germany | March 2023 - November 2024',[
       'Prepared experimental data and developed predictive models, including Random Forests, for materials and fire-safety research.',
@@ -78,9 +81,9 @@ def build_story():
       'Supported Linux and VMware infrastructure; used SQL for analysis and reporting and Python/Bash scripts for recurring operational tasks.'])
     story += [PageBreak(),p('Selected projects','section')]
     story+=entry('Industrial visual inspection | Personal research','2026 | Python, PyTorch, CUDA | <link href="https://amit-tech-datascience.github.io/Amit-Portfolio/projects/industrial-inspection.html" color="#116853">Case study and recorded examples</link>',[
-      'Built a reproducible CLI for data preparation, normal-only calibration, prediction, evaluation and benchmarking; implemented a NumPy baseline and a GPU PatchCore variant.',
+      'Built a reproducible command-line interface (CLI) for data preparation, normal-only calibration, prediction, evaluation and benchmarking; implemented a NumPy baseline and GPU PatchCore variant.',
       'Compared preprocessing on a PCB2 development split: cropped 512 px input detected 43/50 defects with 1/50 false alarms, versus 36/50 and 3/50 for full-frame 256 px input.',
-      'Documented weak transfer to a separate component dataset. Results are exploratory development evidence; an independent acceptance evaluation remains pending.'])
+      'Evaluated transfer to a second component dataset and documented poor performance. Results are from development experiments; independent validation is still pending.'])
     story+=entry('Physics-informed neural networks | Master\'s thesis','2025 | TensorFlow, Hydra, scientific computing | <link href="https://github.com/muecke-math/Master-Amit-Amit" color="#116853">Repository</link>',[
       'Investigated PINN training for Helmholtz and Allen-Cahn equations using existing frameworks including TensorDiffEq and pinns-tf2.',
       'Implemented experiments exploring collocation, adaptive weighting and optimization, with saved solution, residual and error visualizations.'])
@@ -101,7 +104,7 @@ def validate_translations():
     LANGUAGE = 'en'
     SOURCE_TEXTS.clear()
     build_story()
-    SOURCE_TEXTS.update((FOOTER, TITLE, SUBJECT))
+    SOURCE_TEXTS.update((TITLE, SUBJECT))
     TRANSLATIONS = json.loads(Path(__file__).with_name('resume_de.json').read_text(encoding='utf-8'))
     missing = SOURCE_TEXTS - TRANSLATIONS.keys()
     obsolete = TRANSLATIONS.keys() - SOURCE_TEXTS
@@ -117,8 +120,8 @@ def main():
         LANGUAGE = language
         output.parent.mkdir(exist_ok=True)
         buffer = BytesIO()
-        doc=SimpleDocTemplate(buffer,pagesize=A4,rightMargin=43,leftMargin=43,topMargin=35,bottomMargin=42,title=translate(TITLE),author='Amit Amit',subject=translate(SUBJECT),pageCompression=1,lang='de-DE' if language == 'de' else 'en-GB')
-        doc.build(build_story(),onFirstPage=footer,onLaterPages=footer)
+        doc=ResumeDocument(buffer,pagesize=A4,rightMargin=43,leftMargin=43,topMargin=35,bottomMargin=42,title=translate(TITLE),author='Amit Amit',subject=translate(SUBJECT),pageCompression=1,lang='de-DE' if language == 'de' else 'en-GB')
+        doc.build(build_story())
         if doc.page != 2:
             raise ValueError(f'{language} resume has {doc.page} pages; adjust the layout before publishing.')
         generated[output] = buffer.getvalue()

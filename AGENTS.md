@@ -38,3 +38,7 @@ Preserve names, official qualifications, metrics, attribution and honest languag
 Run both builders, `scripts/check.py`, and `scripts/check_bilingual.py`. Render and
 inspect all PDF pages, and test language switching, mobile layouts, gallery controls,
 filters and both downloads before publishing. Commit all 18 HTML pages and both PDFs.
+For resume changes, also run `scripts/check_resumes.py` in the optional PDF environment
+(reportlab, pypdf, pypdfium2). It checks complete text extraction and reading order
+in two engines. Do not describe these local checks as a universal ATS or AI-detector
+pass. Preserve LinkedIn-only public contact unless Amit changes that preference.
