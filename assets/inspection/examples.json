@@ -1,0 +1,53 @@
+{
+  "dataset": "VisA",
+  "license": "CC BY 4.0",
+  "source": "https://github.com/amazon-science/spot-diff",
+  "model_sha256": "24e06bfbaa7e7165b7c20908824753f253db29336e5def72d140ad9d94b26dce",
+  "decision": "anomalous if score > threshold",
+  "preprocessing": "EXIF-aware RGB; chroma-v1 board crop; bilinear resize to 512 square; model normalization",
+  "notes": "Selected development examples, not a representative sample or independent evaluation. Overlays are qualitative anomaly visualizations, not probability or segmentation maps. False-alarm overlay regenerated from the frozen model; score and crop matched the saved evaluation record.",
+  "examples": [
+    {
+      "id": "detected",
+      "outcome": "Defect detected",
+      "source_image": "pcb2/Data/Images/Anomaly/002.JPG",
+      "score": 3.4362430572509766,
+      "threshold": 2.514928102493286,
+      "crop_xyxy": [
+        136,
+        128,
+        1257,
+        953
+      ],
+      "input_sha256": "8a9335e83494f8284a379db3ba5902aa0a99002104f233514c2308ea6b94f40e"
+    },
+    {
+      "id": "missed",
+      "outcome": "Defect missed",
+      "source_image": "pcb2/Data/Images/Anomaly/000.JPG",
+      "score": 2.498131275177002,
+      "threshold": 2.514928102493286,
+      "crop_xyxy": [
+        93,
+        155,
+        1207,
+        959
+      ],
+      "input_sha256": "7ee5d8e7d7496860aa60447f3e779003f4bd852a9f2a1f35b9ed49103a7ef708"
+    },
+    {
+      "id": "false-alarm",
+      "outcome": "False alarm",
+      "source_image": "pcb2/Data/Images/Normal/0024.JPG",
+      "score": 2.7010910511016846,
+      "threshold": 2.514928102493286,
+      "crop_xyxy": [
+        98,
+        128,
+        1218,
+        953
+      ],
+      "input_sha256": "72c6b7df4d2db7621d2f9f6076f7ce9a0f66a7a785b8eb18e908dece6c53d6f1"
+    }
+  ]
+}

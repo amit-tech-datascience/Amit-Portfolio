@@ -19,7 +19,8 @@ Python 3.10+ is only used for the optional preview, generator and checker.
 ## Edit and verify
 
 Content/templates: `scripts/build.py`. Design: `assets/style.css`.
-Progressive project filtering: `assets/site.js`.
+Progressive project filtering and recorded-example controls: `assets/site.js`.
+Evidence gallery and charts: `scripts/evidence.py`.
 
 ```powershell
 python scripts/build.py
@@ -48,11 +49,24 @@ See [SOURCES.md](SOURCES.md) and `sources.html`. LinkedIn was read through Amit'
 signed-in browser; there is no persistent integration or automatic sync.
 Public contact uses LinkedIn only.
 
-`Project_v1` remains private. Only reviewed development aggregates and a written
-summary appear here. No private source, datasets, model weights, certificates or
-employer materials are copied. Original diagrams are conceptual, not predictions.
-No inference service runs here; proposed work is explicitly labeled.
+`Project_v1` remains private. Reviewed development aggregates and three selected
+CC BY 4.0 VisA inputs with qualitative model overlays appear here. Attribution,
+exact scores, hashes and preprocessing notes are in `assets/inspection/`.
+No private source, dataset archives, model weights, certificates or employer
+materials are copied. Conceptual diagrams and recorded outputs are distinguished.
+The gallery browses saved predictions; it does not run an inference service.
 
-Speech scores/audio and a public downloadable CV are omitted until publishable
-materials are verified. Older coursework is linked in the archive. No licensing
-terms are invented for the owner's content or third-party work.
+Speech scores/audio remain omitted until publishable materials are verified.
+Older coursework is linked in the archive. PINN figures link to a pinned source
+commit. No licensing terms are invented for the owner's content or third-party work.
+
+## Public resume
+
+`assets/Amit-Amit-Resume.pdf` is a searchable, linked, two-page public resume.
+It uses current professional information and excludes the supplied application
+bundle's home addresses, phone numbers, personal records, certificates and signatures.
+LinkedIn is the public contact method. Review dates and results before each update.
+
+To regenerate, use a separate optional environment with `reportlab==5.0.1`, then
+run `python scripts/build_resume.py`. Render and inspect both pages before publishing;
+the static website itself has no dependency on ReportLab or any Conda environment.

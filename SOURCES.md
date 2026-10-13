@@ -30,8 +30,31 @@ This is a curated snapshot, not a live LinkedIn integration.
   Custom development split; independently normal-calibrated models; physical
   independence unestablished; near-duplicates unadjudicated. RTX 5070 Ti Laptop
   GPU warm-cache batch-one, 3 warmups/20 repetitions. Innodisk roi512 AUROC .5023,
-  false alarms 3/4. No independent final evaluation. No experiments rerun.
-  Original aggregate charts only; no private code, data or artifacts redistributed.
+  false alarms 3/4. No independent final evaluation. Aggregate evaluations not rerun.
+  One false-alarm overlay regenerated using the frozen model; score, crop and
+  artifact hash matched the saved evaluation. No retraining or weight download.
+
+## Public resume and new evidence
+
+- Owner-supplied resume/application bundle reviewed locally, including the two CV
+  pages. Public resume reconciled with current LinkedIn details (Sedeco, Gotha).
+  Education: M.Sc. Oct 2021-Jun 2025; B.Tech. Electronics and Communication
+  Engineering, New Delhi, Aug 2014-Jun 2018. Languages: English C1, German A2.
+  The source bundle, contact details, personal records and certificates are private.
+- Selected VisA examples and qualitative model overlays: see
+  [attribution](assets/inspection/ATTRIBUTION.md) and
+  [exact scores and provenance](assets/inspection/examples.json).
+  Three selected outcomes from development data; not a representative sample.
+  Source inputs unchanged; overlays crop and resize inputs and add anomaly color.
+- Landslide chart: selected F1 results from the linked team report: baseline
+  .721, RGB+height .718, augmented CE .736, augmented Lovasz .756,
+  augmented Swin-UNet Lovasz .745. Zero-based 0-1 scale; no new evaluation.
+- PINN figure/script links pinned to commit
+  b91b3aaace9229319ca4f3c85e90055be5766d0a, authored by ak06645, 14 April 2025.
+  TensorDiffEq/examples/Allen-Cahn/Baseline/train includes AC_SA_baseline.png,
+  AC_residual.png and AC_absolute_error.png; related script AC-SA-new.py.
+  Configuration is associated source, not a verified execution manifest.
+  Figures are linked, not copied; underlying frameworks are credited.
 
 Design references: https://huyenchip.com/ , https://eugeneyan.com/ ,
 https://madewithml.com/ , https://brittanychiang.com/ . Original implementation;

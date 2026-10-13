@@ -15,3 +15,15 @@ if (filters.length && projects.length) {
     });
   }
 }
+
+const exampleButtons = document.querySelectorAll('[data-example]');
+const examplePanels = document.querySelectorAll('[data-example-panel]');
+if (exampleButtons.length && examplePanels.length) {
+  const selectExample = (id) => {
+    for (const button of exampleButtons) button.setAttribute('aria-pressed', String(button.dataset.example === id));
+    for (const panel of examplePanels) panel.hidden = panel.dataset.examplePanel !== id;
+  };
+  document.querySelector('.example-controls').hidden = false;
+  for (const button of exampleButtons) button.addEventListener('click', () => selectExample(button.dataset.example));
+  selectExample(exampleButtons[0].dataset.example);
+}
