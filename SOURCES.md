@@ -2,6 +2,11 @@
 
 This is a curated snapshot, not a live LinkedIn integration.
 
+The English and German pages share the same reviewed facts and evidence. German
+translations cover all portfolio pages, labels and metadata; both public resumes
+preserve English C1 / German A2. Official names, degree titles, source repositories,
+external documents and machine-readable provenance may remain in their source language.
+
 - Professional experience and education: https://www.linkedin.com/in/amit-tech/
 - Speech enhancement: owner's LinkedIn description; CPC, HiFi-GAN,
   LJ Speech/Libri-Light, EffCRN comparison, NISQA/PESQ/DNSMOS. No verified public

@@ -11,9 +11,33 @@ if (filters.length && projects.length) {
         project.hidden = button.dataset.filter !== 'all' && !project.dataset.category.split(' ').includes(button.dataset.filter);
         if (!project.hidden) visible++;
       }
-      count.textContent = `${visible} ${visible === 1 ? 'project' : 'projects'}`;
+      const german = document.documentElement.lang === 'de';
+      const noun = german ? (visible === 1 ? 'Projekt' : 'Projekte') : (visible === 1 ? 'project' : 'projects');
+      count.textContent = `${visible} ${noun}`;
     });
   }
+}
+
+// Explicit navigation only: English at the root always stays the default.
+// Matching IDs let visitors keep their section when switching language.
+for (const link of document.querySelectorAll('[data-language]')) {
+  link.addEventListener('click', () => {
+    const destination = new URL(link.href);
+    destination.hash = window.location.hash;
+    link.href = destination.href;
+  });
+}
+
+for (const menu of document.querySelectorAll('.language-menu')) {
+  menu.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      menu.open = false;
+      menu.querySelector('summary').focus();
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if (!menu.contains(event.target)) menu.open = false;
+  });
 }
 
 const exampleButtons = document.querySelectorAll('[data-example]');

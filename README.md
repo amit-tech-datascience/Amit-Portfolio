@@ -25,9 +25,11 @@ Evidence gallery and charts: `scripts/evidence.py`.
 ```powershell
 python scripts/build.py
 python scripts/check.py
+python scripts/check_bilingual.py
 ```
 
-Commit generated `index.html`, `sources.html` and `projects/*.html` with source.
+Commit generated `index.html`, `sources.html`, `projects/*.html` and their `de/`
+counterparts with source.
 All content/navigation works without JavaScript. No external fonts or analytics.
 
 ## GitHub Pages
@@ -62,11 +64,38 @@ commit. No licensing terms are invented for the owner's content or third-party w
 
 ## Public resume
 
-`assets/Amit-Amit-Resume.pdf` is a searchable, linked, two-page public resume.
+`assets/Amit-Amit-Resume-EN.pdf` and `assets/Amit-Amit-Lebenslauf-DE.pdf` are
+searchable, linked, two-page public resumes in English and German.
 It uses current professional information and excludes the supplied application
 bundle's home addresses, phone numbers, personal records, certificates and signatures.
 LinkedIn is the public contact method. Review dates and results before each update.
 
 To regenerate, use a separate optional environment with `reportlab==5.0.1`, then
-run `python scripts/build_resume.py`. Render and inspect both pages before publishing;
+run `python scripts/build_resume.py`. It builds both languages and rejects missing,
+obsolete or empty German translations in `scripts/resume_de.json`. Render and inspect
+all four pages before publishing;
 the static website itself has no dependency on ReportLab or any Conda environment.
+
+The earlier `assets/Amit-Amit-Resume.pdf` remains available for old shared links;
+the language-labelled downloads above are the maintained versions.
+
+## English and German
+
+English is always the default at the root URL. German pages live in `de/`.
+There is no automatic language detection, redirect, cookie or remembered preference.
+The native dropdown works with keyboard and without JavaScript. Switching keeps
+the matching page, and JavaScript also preserves the current section anchor.
+Internal navigation stays in the chosen language. Both PDF languages are offered
+on both homepages; the navigation download follows the current page language.
+
+**Always update both languages together**, as requested by Amit. English content is
+in `scripts/build.py` and `scripts/evidence.py`; reviewed German translations are in
+`scripts/de.json`. The shared HTML parser translates text, accessibility labels and
+metadata at build time and adjusts local URLs. Missing, obsolete or empty translations
+stop the build before any pages are written. Names, official degree titles and code
+identifiers intentionally retain their original spelling. Numeric text uses German
+decimal commas; underlying scientific values and JSON provenance are unchanged.
+
+When a fact changes, update both resumes as well. Run both builders and both check
+scripts, inspect desktop/mobile layouts and PDF pages, then commit all generated files.
+No online translation service or additional runtime dependency is used.

@@ -1,8 +1,12 @@
-"""Create the public two-page resume. Optional dependency: reportlab.
+"""Create both public two-page resumes. Optional dependency: reportlab.
 
 Only professional, publication-approved content belongs in this file.
 The source application bundle and its personal records must remain private.
+Keep resume_de.json in sync: every English paragraph requires a German entry.
+Changed, missing or obsolete translation keys stop the build before PDF output.
 """
+import json
+from io import BytesIO
 from pathlib import Path
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT, TA_RIGHT
@@ -11,7 +15,14 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, KeepTogether
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / 'assets' / 'Amit-Amit-Resume.pdf'
+OUTPUTS = {'en': ROOT / 'assets' / 'Amit-Amit-Resume-EN.pdf',
+           'de': ROOT / 'assets' / 'Amit-Amit-Lebenslauf-DE.pdf'}
+LANGUAGE = 'en'
+SOURCE_TEXTS = set()
+TRANSLATIONS = {}
+FOOTER = 'Amit Amit | Public resume | Updated October 2026'
+TITLE = 'Amit Amit - Data Scientist Resume'
+SUBJECT = 'Public professional resume'
 INK = colors.HexColor('#172e38')
 TEAL = colors.HexColor('#116853')
 MUTED = colors.HexColor('#52666f')
@@ -26,8 +37,12 @@ STYLES = {
     'bullet': ParagraphStyle('Bullet',fontName='Helvetica',fontSize=10,leading=13.5,textColor=INK,leftIndent=10,firstLineIndent=-8,spaceAfter=3),
 }
 
+def translate(text):
+    SOURCE_TEXTS.add(text)
+    return TRANSLATIONS[text] if LANGUAGE == 'de' else text
+
 def p(text,style='body'):
-    return Paragraph(text,STYLES[style])
+    return Paragraph(translate(text),STYLES[style])
 
 def entry(title,meta,bullets):
     return [p(title,'role'),p(meta,'meta'),*[p('- '+b,'bullet') for b in bullets]]
@@ -36,12 +51,11 @@ def footer(canvas,doc):
     canvas.saveState()
     canvas.setFont('Helvetica',8)
     canvas.setFillColor(MUTED)
-    canvas.drawString(43,27,'Amit Amit | Public resume | Updated October 2026')
+    canvas.drawString(43,27,translate(FOOTER))
     canvas.drawRightString(A4[0]-43,27,f'{doc.page} / 2')
     canvas.restoreState()
 
-def main():
-    OUTPUT.parent.mkdir(exist_ok=True)
+def build_story():
     story=[p('Amit Amit','name'),p('Data Scientist | Computer Vision and Applied AI','subtitle'),
       p('Gotha, Germany &nbsp; | &nbsp; <link href="https://www.linkedin.com/in/amit-tech/" color="#116853">linkedin.com/in/amit-tech</link><br/><link href="https://amit-tech-datascience.github.io/Amit-Portfolio/" color="#116853">Portfolio and case studies</link> &nbsp; | &nbsp; <link href="https://github.com/amit-tech-datascience" color="#116853">GitHub: amit-tech-datascience</link> &nbsp; | &nbsp; <link href="https://github.com/ak06645" color="#116853">Earlier work: ak06645</link>','contact'),
       p('Data Scientist at Sedeco Imaging working on camera-based detection, robotic handling and efficient edge deployment. M.Sc. in Data Science from TU Braunschweig, with research experience in scientific machine learning, biomedical data analysis and aerospace applications. Earlier experience in Linux infrastructure, automation and SQL reporting.'),
@@ -79,9 +93,40 @@ def main():
     story += [p('Education','section'),p('<b>M.Sc. Data Science | Technische Universit\u00e4t Braunschweig</b><br/>October 2021 - June 2025','body'),p('<b>B.Tech. Electronics and Communication Engineering</b><br/>Bharati Vidyapeeth\'s College of Engineering, New Delhi | August 2014 - June 2018','body'),
       p('Conference contribution','section'),p('Janko Kreikemeier, Amit Amit and Steffen Opitz. <i>Towards a Circular Future with Structural Life 2.0 and Blockchain-Approach.</i> World Symposium on Materials Sciences and Engineering, Singapore, December 2025. Conference speech; <link href="https://elib.dlr.de/220248/" color="#116853">DLR bibliographic record</link>.'),
       p('Languages','section'),p('English: C1 | German: A2')]
-    doc=SimpleDocTemplate(str(OUTPUT),pagesize=A4,rightMargin=43,leftMargin=43,topMargin=35,bottomMargin=42,title='Amit Amit - Data Scientist Resume',author='Amit Amit',subject='Public professional resume',pageCompression=1)
-    doc.build(story,onFirstPage=footer,onLaterPages=footer)
-    print(OUTPUT)
+    return story
+
+def validate_translations():
+    """Preflight the complete catalogue before writing either published PDF."""
+    global LANGUAGE, TRANSLATIONS
+    LANGUAGE = 'en'
+    SOURCE_TEXTS.clear()
+    build_story()
+    SOURCE_TEXTS.update((FOOTER, TITLE, SUBJECT))
+    TRANSLATIONS = json.loads(Path(__file__).with_name('resume_de.json').read_text(encoding='utf-8'))
+    missing = SOURCE_TEXTS - TRANSLATIONS.keys()
+    obsolete = TRANSLATIONS.keys() - SOURCE_TEXTS
+    empty = [key for key, value in TRANSLATIONS.items() if not isinstance(value, str) or not value.strip()]
+    if missing or obsolete or empty:
+        raise ValueError(f'Update both resume languages. Missing: {sorted(missing)!r}; obsolete: {sorted(obsolete)!r}; empty: {empty!r}')
+
+def main():
+    global LANGUAGE
+    validate_translations()
+    generated = {}
+    for language, output in OUTPUTS.items():
+        LANGUAGE = language
+        output.parent.mkdir(exist_ok=True)
+        buffer = BytesIO()
+        doc=SimpleDocTemplate(buffer,pagesize=A4,rightMargin=43,leftMargin=43,topMargin=35,bottomMargin=42,title=translate(TITLE),author='Amit Amit',subject=translate(SUBJECT),pageCompression=1,lang='de-DE' if language == 'de' else 'en-GB')
+        doc.build(build_story(),onFirstPage=footer,onLaterPages=footer)
+        if doc.page != 2:
+            raise ValueError(f'{language} resume has {doc.page} pages; adjust the layout before publishing.')
+        generated[output] = buffer.getvalue()
+    for output, content in generated.items():
+        staged = output.with_suffix('.pdf.tmp')
+        staged.write_bytes(content)
+        staged.replace(output)
+        print(output)
 
 if __name__=='__main__':
     main()

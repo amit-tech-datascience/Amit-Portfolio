@@ -23,3 +23,18 @@ Record new factual sources in `SOURCES.md`. Do not invent results or dates.
 Recorded evidence rendering: scripts/evidence.py. Public resume source:
 scripts/build_resume.py (optional reportlab dependency); generated PDF is committed.
 Never copy the source application bundle or its records into the public repository.
+
+## Bilingual maintenance (owner preference)
+
+Always update English AND German together, including both resumes when facts change.
+English at the repository root is always the default. German pages live under `de/`.
+Do not add browser-language redirects, cookies or stored language preferences.
+`scripts/build.py` generates both locales with shared templates; `scripts/de.json`
+contains reviewed translations. Missing/changed English text must block the build
+until its German entry is updated. Never silently fall back to English on German pages.
+Translate navigation, labels, alt text, metadata, results and limitations as well as prose.
+Preserve names, official qualifications, metrics, attribution and honest language levels.
+`scripts/build_resume.py` generates both PDFs; update `scripts/resume_de.json` with it.
+Run both builders, `scripts/check.py`, and `scripts/check_bilingual.py`. Render and
+inspect all PDF pages, and test language switching, mobile layouts, gallery controls,
+filters and both downloads before publishing. Commit all 18 HTML pages and both PDFs.
