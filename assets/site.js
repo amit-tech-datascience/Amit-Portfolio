@@ -11,7 +11,7 @@ if (filters.length && projects.length) {
         project.hidden = button.dataset.filter !== 'all' && !project.dataset.category.split(' ').includes(button.dataset.filter);
         if (!project.hidden) visible++;
       }
-      count.textContent = `${visible} projects`;
+      count.textContent = `${visible} ${visible === 1 ? 'project' : 'projects'}`;
     });
   }
 }
