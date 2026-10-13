@@ -42,7 +42,7 @@ def chart():
 
 def shell(title, description, body, prefix='', path=''):
     return f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)} — Amit Amit</title><meta name="description" content="{esc(description)}"><meta name="theme-color" content="#102b35"><meta property="og:title" content="{esc(title)} — Amit Amit"><meta property="og:description" content="{esc(description)}"><meta property="og:type" content="website"><link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/style.css"><script src="{prefix}assets/site.js" defer></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)} — Amit Amit</title><meta name="description" content="{esc(description)}"><meta name="theme-color" content="#102b35"><meta property="og:title" content="{esc(title)} — Amit Amit"><meta property="og:description" content="{esc(description)}"><meta property="og:type" content="website"><link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/style.css?v=20261013-2"><script src="{prefix}assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header class="header"><nav class="wrap nav" aria-label="Main navigation"><a class="brand" href="{prefix}index.html" aria-label="Amit Amit home">amit<span>.</span></a><div class="navlinks"><a href="{prefix}index.html#work">Work</a><a href="{prefix}index.html#experience">Experience</a><a href="{prefix}index.html#about">About</a><a href="#contact">Let’s talk ↗</a></div></nav></header>
 <main id="main">{body}</main><section class="contact" id="contact" aria-labelledby="contact-title"><div class="wrap"><div><p class="eyebrow">Let’s connect</p><h2 id="contact-title">Good work starts<br>with a conversation.</h2><p>Applied AI, computer vision, or a research question worth exploring.</p></div><div class="actions"><a class="button" href="{LINKEDIN}">Connect on LinkedIn <span aria-hidden="true">↗</span></a><a class="textlink" href="{GITHUB}">GitHub ↗</a></div></div></section><footer><div class="wrap"><span>© 2026 Amit Amit · Gotha, Germany</span><span>Updated 13 October 2026 · <a href="{prefix}sources.html">Sources & project notes</a></span></div></footer></body></html>'''
 
@@ -72,10 +72,10 @@ def sources_page():
 
 def main():
     (ROOT/'projects').mkdir(exist_ok=True)
-    (ROOT/'index.html').write_text(build_home(),encoding='utf-8')
-    (ROOT/'sources.html').write_text(sources_page(),encoding='utf-8')
+    (ROOT/'index.html').write_text(build_home(),encoding='utf-8', newline='\n')
+    (ROOT/'sources.html').write_text(sources_page(),encoding='utf-8', newline='\n')
     for project in PROJECTS:
-        (ROOT/'projects'/f'{project["slug"]}.html').write_text(build_case(project),encoding='utf-8')
+        (ROOT/'projects'/f'{project["slug"]}.html').write_text(build_case(project),encoding='utf-8', newline='\n')
     print(f'Built homepage, sources and {len(PROJECTS)} case studies.')
 
 if __name__=='__main__':
