@@ -2,7 +2,8 @@
 
 Public, dependency-free static portfolio for `amit-tech-datascience/Amit-Portfolio`.
 
-- Source content and HTML generation: `scripts/build.py`.
+- Source content and HTML generation: `scripts/build.py`; Incident Lab editorial
+  content: `scripts/incident.py`.
 - Design: `assets/style.css`; progressive project filtering: `assets/site.js`.
 - Build: `python scripts/build.py` (Python standard library only).
 - Validate: `python scripts/check.py`.
@@ -16,6 +17,10 @@ never imply an independent benchmark or production performance. Keep private
 Project_v1 code, models, dataset archives and employer materials out of this repository.
 The owner-approved exception is three licensed VisA inputs and their qualitative
 overlays in assets/inspection; preserve attribution and recorded provenance.
+Project_v2 source, release archives, databases and telemetry remain private. Only
+reviewed editorial summaries and aggregate synthetic results belong on this site.
+Keep original and later Incident Lab campaigns separate; do not imply production
+accuracy, model superiority, independent review or team-management experience.
 Do not publish personal records, certificates, private profile fields or credentials.
 Use relative site links so the site works under `/Amit-Portfolio/`.
 Record new factual sources in `SOURCES.md`. Do not invent results or dates.
@@ -37,7 +42,7 @@ Preserve names, official qualifications, metrics, attribution and honest languag
 `scripts/build_resume.py` generates both PDFs; update `scripts/resume_de.json` with it.
 Run both builders, `scripts/check.py`, and `scripts/check_bilingual.py`. Render and
 inspect all PDF pages, and test language switching, mobile layouts, gallery controls,
-filters and both downloads before publishing. Commit all 18 HTML pages and both PDFs.
+filters and both downloads before publishing. Commit all 20 HTML pages and both PDFs.
 For resume changes, also run `scripts/check_resumes.py` in the optional PDF environment
 (reportlab, pypdf, pypdfium2). It checks complete text extraction and reading order
 in two engines. Do not describe these local checks as a universal ATS or AI-detector

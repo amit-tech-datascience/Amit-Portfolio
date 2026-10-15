@@ -2,6 +2,38 @@
 
 This is a curated snapshot, not a live LinkedIn integration.
 
+## Incident Lab addition - reviewed 15 October 2026
+
+- Owner requested a public portfolio update for private Project_v2. Reviewed
+  `docs/progress.md`, `docs/architecture.md`, `docs/portfolio-case-study.md`,
+  `docs/release-checklist.md` and the v0.3.2 release records. Runtime source freeze:
+  `c28f5be75842bc7405c11cc8ece49418663179fc`; delivery record: `21158e5`.
+- Original synthetic campaigns: AI ML 5/9 and generic 6/9; later v0.3.1 campaigns:
+  AI ML 9/9 and generic 8/9. Full-evidence rules matched 9/9 in all four. Each
+  denominator includes scheduled failures and controls/abstentions. These are
+  separate campaigns on known fault families, not an independent improvement
+  estimate. v0.3.2 adds no new diagnosis-quality score.
+- Delivery: 134 Python tests; JavaScript checks; successful clean Windows/Linux
+  CI run 38721134019. Portable saved demo: 36 observation windows, 72 jobs,
+  64 completed and eight failed. Mock cooldown/restart drill: two scripted HTTP
+  responses, zero external calls, no retry of the original failed attempt.
+- Original project attribution: solo, AI-assisted engineering. Independent human
+  review and a physical second-PC exercise remain deferred. No production
+  availability, autonomous remediation, model superiority or people-management
+  claim. Groq live-tested; OpenAI adapter not verified live.
+- Public scope: original editorial text, conceptual architecture flow and aggregate
+  result table only. No copied implementation, snapshots, databases, screenshots,
+  raw telemetry, source ZIP, provider configuration or credentials. The private
+  release is not advertised as publicly downloadable; contact stays LinkedIn-only.
+- Both English and German pages and the two maintained public resumes are updated.
+  Other professional history and project evidence retain their earlier review dates.
+- Portfolio validation: 20 generated pages pass link/accessibility-structure and
+  bilingual parity checks; JavaScript syntax passes. Both two-page PDFs pass
+  extraction and reading-order checks in pypdf and PDFium; all four rendered
+  pages were visually inspected. Browser checks cover desktop/mobile layouts,
+  bidirectional language switching, project filtering, gallery controls in both
+  languages and both PDF downloads (matching local hashes), with no console errors.
+
 The English and German pages share the same reviewed facts and evidence. German
 translations cover all portfolio pages, labels and metadata; both public resumes
 preserve English C1 / German A2. Official names, degree titles, source repositories,

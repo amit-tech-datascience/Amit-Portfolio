@@ -1,8 +1,9 @@
 # Amit Amit — Portfolio
 
 Personal portfolio for a Data Scientist at Sedeco Imaging in Gotha, Germany.
-Seven case studies, professional experience, education, skills and a DLR
-conference contribution. Professional content reviewed 13 October 2026.
+Eight case studies, professional experience, education, skills and a DLR
+conference contribution. Professional history reviewed 13 October 2026;
+Incident Lab added from verified v0.3.2 delivery records on 15 October 2026.
 
 ## Local preview
 
@@ -57,6 +58,14 @@ exact scores, hashes and preprocessing notes are in `assets/inspection/`.
 No private source, dataset archives, model weights, certificates or employer
 materials are copied. Conceptual diagrams and recorded outputs are distinguished.
 The gallery browses saved predictions; it does not run an inference service.
+
+`Project_v2` (Incident Lab) also remains private. The public English/German case
+study summarizes architecture, separately labelled synthetic campaign results,
+operational checks and delivery evidence. It links to LinkedIn for a walkthrough,
+not an inaccessible private repository or a live application. No source code,
+saved databases, release ZIPs, raw telemetry or credentials are copied. Independent
+review and physical second-PC verification remain deferred. Both maintained
+resumes include Incident Lab among the selected projects.
 
 Speech scores/audio remain omitted until publishable materials are verified.
 Older coursework is linked in the archive. PINN figures link to a pinned source

@@ -80,6 +80,9 @@ def build_story():
     story+=entry('Senior Systems Engineer | Infosys','Bengaluru, India | March 2019 - November 2021',[
       'Supported Linux and VMware infrastructure; used SQL for analysis and reporting and Python/Bash scripts for recurring operational tasks.'])
     story += [PageBreak(),p('Selected projects','section')]
+    story+=entry('Incident Lab | Personal AI systems project','2026 | Python, FastAPI, SQLite, OpenTelemetry | <link href="https://amit-tech-datascience.github.io/Amit-Portfolio/projects/incident-lab.html" color="#116853">Architecture and evaluation case study</link>',[
+      'Designed a bounded AI investigation workflow with citation validation, durable jobs, provider cooldowns and verified backup/restore; solo development with AI assistance.',
+      'Passed 134 Python tests and clean Windows/Linux CI. Preserved failed attempts in frozen synthetic evaluations; independent review and second-PC verification remain pending.'])
     story+=entry('Industrial visual inspection | Personal research','2026 | Python, PyTorch, CUDA | <link href="https://amit-tech-datascience.github.io/Amit-Portfolio/projects/industrial-inspection.html" color="#116853">Case study and recorded examples</link>',[
       'Built a reproducible command-line interface (CLI) for data preparation, normal-only calibration, prediction, evaluation and benchmarking; implemented a NumPy baseline and GPU PatchCore variant.',
       'Compared preprocessing on a PCB2 development split: cropped 512 px input detected 43/50 defects with 1/50 false alarms, versus 36/50 and 3/50 for full-frame 256 px input.',
@@ -90,9 +93,6 @@ def build_story():
     story+=entry('Landslide segmentation | Collaborative academic project','2023 | UNet, Swin-based UNet, SegFormer | <link href="https://deep-learning-igp-tubs-sose2023.github.io/Group_C/" color="#116853">Team report</link>',[
       'Collaborated with Reiko Lettmoden on multispectral segmentation, comparing architectures, input bands, augmentation and imbalance-aware losses.',
       'The team report records F1 0.756 for augmented UNet with Lovasz loss versus 0.721 baseline, using a local split of a training subset, not the official benchmark test set.'])
-    story+=entry('Additional applied AI and research projects','2022 - 2025 | <link href="https://amit-tech-datascience.github.io/Amit-Portfolio/" color="#116853">Portfolio archive</link>',[
-      'Speech enhancement: CPC representations and HiFi-GAN in PyTorch; NISQA, PESQ and DNSMOS evaluation against an EffCRN baseline.',
-      'Character AI application: Next.js/TypeScript, Express, MongoDB and OpenRouter integration. Earlier work includes equivariant leakage localization and water forecasting.'])
     story += [p('Education','section'),p('<b>M.Sc. Data Science | Technische Universit\u00e4t Braunschweig</b><br/>October 2021 - June 2025','body'),p('<b>B.Tech. Electronics and Communication Engineering</b><br/>Bharati Vidyapeeth\'s College of Engineering, New Delhi | August 2014 - June 2018','body'),
       p('Conference contribution','section'),p('Janko Kreikemeier, Amit Amit and Steffen Opitz. <i>Towards a Circular Future with Structural Life 2.0 and Blockchain-Approach.</i> World Symposium on Materials Sciences and Engineering, Singapore, December 2025. Conference speech; <link href="https://elib.dlr.de/220248/" color="#116853">DLR bibliographic record</link>.'),
       p('Languages','section'),p('English: C1 | German: A2')]

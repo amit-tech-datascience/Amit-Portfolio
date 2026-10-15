@@ -47,6 +47,6 @@ for path, page in pages.items():
         elif not target.exists(): errors.append(f'{path.name}: missing {ref}')
         elif url.fragment and target in pages and unquote(url.fragment) not in pages[target].ids:
             errors.append(f'{path.name}: missing fragment {ref}')
-assert len(pages) == 18, 'Expected homepage, sources, seven case studies in each language'
+assert len(pages) == 20, 'Expected homepage, sources, eight case studies in each language'
 assert not errors, '\n'.join(errors)
 print(f'PASS: {len(pages)} pages; local links, fragments, assets, IDs, headings, landmarks and illustration labels.')

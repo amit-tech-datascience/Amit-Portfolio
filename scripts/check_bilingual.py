@@ -47,7 +47,7 @@ for path,expected in rendered.items():
         assert 'Resume-EN.pdf' in actual and 'Lebenslauf-DE.pdf' in actual
         assert ('Deutsch (A2)' if de else 'German (A2)') in text
     if '/projects/' in '/'+path:
-        has_pcb_table=any(tag=='caption' for tag,a in p.tags)
+        has_pcb_table=any('Recorded PCB2' in text or 'Dokumentierte PCB2' in text for text in p.text)
         assert has_pcb_table==path.endswith('/industrial-inspection.html'), f'{path}: unrelated PCB results'
         if path.endswith('/industrial-inspection.html'):
             for key in ['example-detected','example-missed','example-false-alarm']:
@@ -61,4 +61,4 @@ probe.feed('<p>New untranslated project description</p><img alt="New untranslate
 assert probe.missing=={'New untranslated project description','New untranslated image label'}
 js=(ROOT/'assets/site.js').read_text(encoding='utf-8')
 assert all(s not in js for s in ['localStorage','sessionStorage','navigator.language','document.cookie'])
-print('PASS: 18 current bilingual pages; counterpart links, locale-preserving navigation, English default, language-labelled PDF targets, gallery values and strict translation coverage.')
+print('PASS: 20 current bilingual pages; counterpart links, locale-preserving navigation, English default, language-labelled PDF targets, gallery values and strict translation coverage.')
